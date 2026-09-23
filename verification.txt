@@ -1,0 +1,47 @@
+Java compile: PASS
+Main execution: PASS
+Expected final heap found: [10, 9, 8, 5, 6, 3, 7, 4, 2, 1]
+Performance experiment: PASS
+
+Main output:
+=== Algorithm A: Incremental Build Heap ===
+Insert 4 -> [4]
+Insert 10 -> [10, 4]
+Insert 3 -> [10, 4, 3]
+Insert 5 -> [10, 5, 3, 4]
+Insert 1 -> [10, 5, 3, 4, 1]
+Insert 8 -> [10, 5, 8, 4, 1, 3]
+Insert 7 -> [10, 5, 8, 4, 1, 3, 7]
+Insert 9 -> [10, 9, 8, 5, 1, 3, 7, 4]
+Insert 2 -> [10, 9, 8, 5, 1, 3, 7, 4, 2]
+Insert 6 -> [10, 9, 8, 5, 6, 3, 7, 4, 2, 1]
+
+=== Algorithm B: Bottom-Up Build Heap ===
+Initial Array -> [4, 10, 3, 5, 1, 8, 7, 9, 2, 6]
+HeapifyDown index 4 -> [4, 10, 3, 5, 6, 8, 7, 9, 2, 1]
+HeapifyDown index 3 -> [4, 10, 3, 9, 6, 8, 7, 5, 2, 1]
+HeapifyDown index 2 -> [4, 10, 8, 9, 6, 3, 7, 5, 2, 1]
+HeapifyDown index 1 -> [4, 10, 8, 9, 6, 3, 7, 5, 2, 1]
+HeapifyDown index 0 -> [10, 9, 8, 5, 6, 3, 7, 4, 2, 1]
+
+Final Heap A = [10, 9, 8, 5, 6, 3, 7, 4, 2, 1]
+Final Heap B = [10, 9, 8, 5, 6, 3, 7, 4, 2, 1]
+Same final heap = true
+
+=== Job Heap Operations ===
+DISPLAY_HEAP: [J02(Emergency, P=10), J04(DatabaseFix, P=9), J06(SecurityScan, P=8), J01(Backup, P=3), J05(Email, P=2), J03(Report, P=5)]
+PEEK_MAX: J02(Emergency, P=10)
+Heap valid: true
+REMOVE_MAX: J02(Emergency, P=10)
+After REMOVE_MAX: [J04(DatabaseFix, P=9), J03(Report, P=5), J06(SecurityScan, P=8), J01(Backup, P=3), J05(Email, P=2)]
+After INCREASE_PRIORITY(index=2, newPriority=12): [J06(SecurityScan, P=12), J03(Report, P=5), J04(DatabaseFix, P=9), J01(Backup, P=3), J05(Email, P=2)]
+
+BUILD_HEAP with all sample jobs:
+[J02(Emergency, P=10), J04(DatabaseFix, P=9), J06(SecurityScan, P=8), J01(Backup, P=3), J05(Email, P=2), J03(Report, P=5)]
+
+Performance output:
+n=1000 | A Build=955674 ns | B Build=646773 ns | A Remove1000=3523511 ns | B Remove1000=2432130 ns
+n=10000 | A Build=3942816 ns | B Build=2231454 ns | A Remove1000=792445 ns | B Remove1000=424300 ns
+n=100000 | A Build=13792941 ns | B Build=5314969 ns | A Remove1000=616296 ns | B Remove1000=619633 ns
+n=500000 | A Build=114607392 ns | B Build=119130198 ns | A Remove1000=2141330 ns | B Remove1000=1783335 ns
+Saved results to: performance_results.csv
